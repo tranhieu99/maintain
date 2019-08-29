@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Maintenance Work Item-->
+    <record id="work_item_act" model="ir.actions.act_window">
+        <field name="name">Maintenance Work Item</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.work.item</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="work_item_form" model="ir.ui.view">
+        <field name="name">Maintenance Work Item</field>
+        <field name="model">maintenance.work.item</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Work Item">
+                <sheet>
+                    <group>
+                            <field name="name"/>
+                            <field name="work_type"/>
+                            <field name="time"/>
+                            <field name="description"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="work_item_tree" model="ir.ui.view">
+        <field name="name">Maintenance Work Item</field>
+        <field name="model">maintenance.work.item</field>
+        <field name="arch" type="xml">
+            <tree string="Maintenance Work Item">
+                <field name="name"/>
+                <field name="work_type"/>
+                <field name="time"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- This Menu Item must have a parent and an action -->
+    <menuitem id="menu_maintenance_work_item" name="Maintenance Work Item" parent="menu_maintenance_configuration"
+              action="work_item_act"
+              sequence="5"/>
+
+</odoo>

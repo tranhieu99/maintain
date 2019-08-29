@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!--Create action form-->
+        <record id="cata_provider_act" model="ir.actions.act_window">
+            <field name="name">Nhà cung cấp</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mes.provider</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--Create add and edit form-->
+        <record id="cata_provider_form" model="ir.ui.view">
+            <field name="name">Nhà cung cấp</field>
+            <field name="model">mes.provider</field>
+            <field name="arch" type="xml">
+                <form string="Nhà cung cấp">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="country"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Create tree-->
+        <record id="cata_provider_tree" model="ir.ui.view">
+            <field name="name">Nhà cung cấp</field>
+            <field name="model">mes.provider</field>
+            <field name="arch" type="xml">
+                <tree string="Nhà cung cấp">
+                    <field name="name"/>
+                    <field name="country"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--Sub menu-->
+        <menuitem id="provider_submenu" name="Provider" parent="menu_equipment_configuration"
+                  action="cata_provider_act" sequence="1"/>
+
+    </data>
+
+</odoo>

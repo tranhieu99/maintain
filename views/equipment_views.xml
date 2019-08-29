@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--Equipment group-->
+    <record id="equipment_group_act" model="ir.actions.act_window">
+        <field name="name">Equipment Group</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.equipment.group</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="equipment_group_form" model="ir.ui.view">
+        <field name="name">Equipment Group</field>
+        <field name="model">maintenance.equipment.group</field>
+        <field name="arch" type="xml">
+            <form string="Equipment Group">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="equipment_group_tree" model="ir.ui.view">
+        <field name="name">Equipment Group</field>
+        <field name="model">maintenance.equipment.group</field>
+        <field name="arch" type="xml">
+            <tree string="Equipment Group">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!--Equipment Informations-->
+    <!-- equiment : views -->
+    <record id="equipment_action" model="ir.actions.act_window">
+        <field name="name">Equipments</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.equipment</field>
+        <!--<field name="view_type">form</field>-->
+        <field name="view_mode">tree,form,graph</field>
+    </record>
+
+    <!--<record id="child_equipment_action_tree" model="ir.actions.act_window.view">-->
+    <!--<field name="view_mode">tree</field>-->
+    <!--<field name="view_id" ref="equipment_view_tree"/>-->
+    <!--<field name="act_window_id" ref="equipment_action"/>-->
+    <!--</record>-->
+
+    <!--<record id="child_equipment_action_form" model="ir.actions.act_window.view">-->
+    <!--<field name="view_mode">form</field>-->
+    <!--<field name="view_id" ref="equipment_view_form"/>-->
+    <!--<field name="act_window_id" ref="equipment_action"/>-->
+    <!--</record>-->
+
+    <record id="equipment_view_form" model="ir.ui.view">
+        <field name="name">Equipments</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <form string="Equipments">
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" string="Name" placeholder="Equipment Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="image" widget="image" class="oe_avatar"/>
+                            <field name="factory_id"/>
+                            <!--# Ngày bắt đầu hoạt động-->
+                            <field name="assign_date"/>
+                            <!--# Ngày hết hạn bảo hành-->
+                            <field name="scrap_date"/>
+                            <field name="filename" />
+                            <field name="data_sheet" widget="binary" filename="filename"/>
+                            <field name="active" readonly="True"/>
+                        </group>
+                        <group>
+                            <field name="qr_code" widget="image" class="oe_avatar"/>
+                            <field name="category_id"/>
+                            <!--Lựa chọn nhà cung cấp Máy móc/Thiết bị-->
+                            <field name="provider_id"/>
+                            <field name="serial_no"/>
+                            <field name="model"/>
+                            <!-- <field name="time_db"/>
+                            <field name="time_offset"/>
+                            <field name="alarm_db"/>
+                            <field name="alarm_offset"/> -->
+                            <field name="is_energy_monitor" widget="radio"/>
+                        </group>
+                    </group>
+                    <label for="note" string="Thông số kỹ thuật"/>
+                    <div>
+                        <field name="note"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="equipment_view_tree" model="ir.ui.view">
+        <field name="name">Equipments</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="priority" eval="15"/>
+        <field name="arch" type="xml">
+            <tree string="Equipments">
+                <field name="name"/>
+                <field name="factory_id"/>
+                <field name="category_id"/>
+                <field name="assign_date"/>
+                <field name="serial_no"/>
+                <field name="model"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="equipment_view_graph" model="ir.ui.view">
+        <field name="name">Equipments</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="arch" type="xml">
+            <graph string="Equipments">
+                <!--<field name="factory_id"/>-->
+                <field name="active"/>
+            </graph>
+        </field>
+    </record>
+
+    <!--Menu in Equipment Feature-->
+    <menuitem
+            id="menu_equipment_title"
+            name="Equipment"
+            web_icon="maintenance,static/description/eqicon.png"
+            sequence="1"/>
+
+    <menuitem
+            id="menu_equipment_configuration"
+            name="Configuration"
+            parent="menu_equipment_title"
+            sequence="2"/>
+
+    <menuitem
+            id="menu_equipment_group"
+            name="Equipment Groups"
+            parent="menu_equipment_configuration"
+            action="equipment_group_act"
+            sequence="3"/>
+
+    <!--Menu to manage Equipment Informations-->
+    <menuitem
+            id="submenu_equipment_title"
+            name="Equipment"
+            parent="menu_equipment_title"
+            action="equipment_action"
+            sequence="1"/>
+
+</odoo>

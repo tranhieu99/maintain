@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+        <!--Create action form-->
+        <record id="cata_factory_act" model="ir.actions.act_window">
+            <field name="name">Factory</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mes.factory</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <!--Create add and edit form-->
+        <record id="cata_factory_form" model="ir.ui.view">
+            <field name="name">Factory Information</field>
+            <field name="model">mes.factory</field>
+            <field name="arch" type="xml">
+                <form string="Factory Information">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="parent_id"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--Create tree-->
+        <record id="cata_factory_tree" model="ir.ui.view">
+            <field name="name">Factory List</field>
+            <field name="model">mes.factory</field>
+            <field name="arch" type="xml">
+                <tree string="Factory List">
+                    <field name="name"/>
+                    <field name="parent_id"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="factory_view_kanban" model="ir.ui.view">
+            <field name="name">Factory Kanban</field>
+            <field name="model">mes.factory</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <!--<field name="user_id" string="Factory Kanban"/>-->
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_content oe_kanban_global_click o_kanban_get_form">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <strong><field name="name" string="Factory Name"/></strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="oe_kanban_bottom_right">
+                                            <img t-att-src="kanban_image('res.users', 'image_medium')" t-att-title="Title" width="24" height="24" class="oe_kanban_avatar pull-right"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!--Sub menu-->
+        <menuitem id="factory_submenu" name="Factory" parent="menu_equipment_configuration"
+                  action="cata_factory_act" sequence="2"/>
+
+    </data>
+
+</odoo>

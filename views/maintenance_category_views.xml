@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="maintenance_category_act" model="ir.actions.act_window">
+        <field name="name">Maintenance Type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">maintenance.type</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="maintenance_category_form" model="ir.ui.view">
+        <field name="name">Maintenance Type</field>
+        <field name="model">maintenance.type</field>
+        <field name="arch" type="xml">
+            <form string="Maintenance Type">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="group"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="maintenance_category_tree" model="ir.ui.view">
+        <field name="name">Maintenance Type</field>
+        <field name="model">maintenance.type</field>
+        <field name="arch" type="xml">
+            <tree string="Maintenance Type">
+                <field name="name"/>
+                <field name="group"/>
+            </tree>
+        </field>
+    </record>
+
+    <menuitem
+            id="menu_maintenance_type"
+            name="Maintenance Type"
+            parent="menu_maintenance_configuration"
+            action="maintenance_category_act"
+            groups="group_equipment_manager"
+            sequence="1"/>
+</odoo>

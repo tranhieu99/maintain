@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+    Here is the first view for the model 'client'.
+    We don't specify a priority field, which means
+    by default 16.
+-->
+
+
+    <record model="ir.ui.view" id="client_form_view_1">
+        <field name="name">client.form.view1</field>
+        <field name="model">client</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                First name:
+                <field name="firstname"/>
+                Last name:
+                <field name="lastname"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="client_tree_view_1">
+        <field name="name">client.tree.view1</field>
+        <field name="model">client</field>
+        <field name="type">tree</field>
+        <field name="view_id" ref="client_form_view_1"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="firstname"/>
+                <field name="lastname"/>
+            </tree>
+        </field>
+    </record>
+    <!--
+        A second view, which show fields in an other order.
+        We specify a priority of 15.
+    -->
+    <record model="ir.ui.view" id="client_form_view_2">
+        <field name="name">client.form.view2</field>
+        <field name="model">client</field>
+        <field name="priority" eval="15"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                Last name:
+                <field name="lastname"/>
+                First name:
+                <field name="firstname"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="client_tree_view_2">
+        <field name="name">client.tree.view2</field>
+        <field name="model">client</field>
+        <field name="priority" eval="15"/>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="lastname"/>
+                <field name="firstname"/>
+            </tree>
+        </field>
+    </record>
+    <!--
+    This action open the default view (in our case,
+    the view with the highest priority, the second one)
+-->
+    <record model="ir.actions.act_window" id="client_form_action">
+        <field name="name">client.form.action</field>
+        <field name="res_model">client</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!--
+        This action open the view we specify.
+    -->
+    <record model="ir.actions.act_window" id="client_form_action1">
+        <field name="name">client.form.action1</field>
+        <field name="res_model">client</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <!--<field name="view_id" ref="client_tree_view_1"/>-->
+    </record>
+
+    <record id="child_action_window_tree" model="ir.actions.act_window.view">
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="client_tree_view_1"/>
+        <field name="act_window_id" ref="client_form_action1"/>
+    </record>
+
+    <record id="child_action_window_form" model="ir.actions.act_window.view">
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="client_form_view_1"/>
+        <field name="act_window_id" ref="client_form_action1"/>
+    </record>
+
+    <menuitem id="menu_id" name="Client main menu"/>
+    <menuitem
+            id="menu_id_1"
+            name="Here we don't specify the view"
+            action="client_form_action" parent="menu_id"/>
+    <menuitem
+            id="menu_id_2"
+            name="Here we specify the view"
+            action="client_form_action1" parent="menu_id"/>
+
+
+</odoo>
